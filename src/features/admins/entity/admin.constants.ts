@@ -1,0 +1,5 @@
+export const MINIMUM_USERNAME_LENGTH = 2;
+
+export const MINIMUM_PASSWORD_LENGTH = 3;
+
+export const PASSWORD_SALT_ROUNDS = 10;

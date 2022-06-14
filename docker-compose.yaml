@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  nginx:
+    image: nginx:alpine
+    container_name: todo-list-nginx
+    restart: always
+    tty: true
+    depends_on:
+      - node
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - 80:80
+    networks:
+      - todo_list
+  node:
+    build: ./
+    container_name: todo-list-api
+    restart: always
+    tty: true
+    env_file:
+      - .env
+    depends_on:
+      - db
+    networks:
+      - todo_list
+  db:
+    image: postgres:13-alpine
+    container_name: todo-list-db
+    restart: always
+    tty: true
+    env_file:
+      - .database.env
+    volumes:
+      - data:/var/lib/postgresql/data
+    networks:
+      - todo_list
+  redis:
+    image: redis:alpine
+    container_name: redis
+    networks:
+      - todo_list
+
+volumes:
+  data:
+    name: todos_production_data
+
+networks:
+  todo_list:
+    external: true
