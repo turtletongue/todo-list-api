@@ -3,11 +3,11 @@ import { PlainAdmin } from './interfaces/plain-admin.interface';
 
 export class Admin implements Entity<PlainAdmin> {
   constructor(
-    private readonly id: Id,
-    private readonly username: string,
-    private readonly hashedPassword: string | undefined,
-    private readonly createdAt: Date,
-    private readonly updatedAt: Date,
+    private id: Id,
+    private username: string,
+    private hashedPassword: string | undefined,
+    private createdAt: Date,
+    private updatedAt: Date,
     public readonly isPasswordMatch: (password: string) => Promise<boolean>,
   ) {}
 
